@@ -63,6 +63,11 @@ public:
 	// Begin - Phase 16
 	void OnMouseDownL(int x, int y);
 	// End - Phase 16
+
+	/////
+	int getWidth() {return m_windowWidth;}
+	int getHeight() {return m_windowHeight;}
+	/////
 };
 
 #endif

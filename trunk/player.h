@@ -79,11 +79,19 @@ void OnCollision(CObject *collisionObject)
 public:
 	float direction;	// direction player is facing (same as camera)
 	float pitch;		// pitch of player's lookAt vector
+	
+	///// -- Adam
+	int hp;
+	///// -- Adam
 
 	CPlayer() { size = 7.0f; camera = NULL; terrain = NULL; 
 	// Phase 14 - Take these out for now
 	// Phase 19 - Uncomment the following
-	audioSys = NULL; }
+	audioSys = NULL;
+	///// -- Adam
+	hp = 100;
+	///// -- Adam
+	}
 	~CPlayer() {}
 
 	void SetCamera(CCamera *c) { camera = c; }

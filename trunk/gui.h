@@ -19,6 +19,13 @@
 #include "font.h"
 #include "texture.h"
 
+///// -- Adam
+#include "enemy.h"
+#include "player.h"
+
+#define MAX_ENEMIES 10
+///// -- Adam
+
 class CGUI
 {
 private:
@@ -28,6 +35,14 @@ private:
 	CFont *font;
 	CFont *crosshair;
 	CFont *endText;
+
+	///// -- Adam
+	int height, width; // used to calculate aspect ratio in order to draw gui and then switch back to 3d
+	CPlayer *player;
+	CEnemy *sod[MAX_ENEMIES], *ogro[MAX_ENEMIES];
+	int sodIndex, ogroIndex;
+	bool gameOver;
+	///// -- Adam
 
 public:
 	CGUI();
@@ -40,6 +55,14 @@ public:
 
 	void DrawWinner();
 	void DrawLoser();
+
+	///// -- Adam
+	void setScreen(int w, int h); // set the screen whenever the screen changes (called from world class)
+
+	void setPlayer(CPlayer* p);
+	void setSod(CEnemy* s);
+	void setOgro(CEnemy* o);
+	///// -- Adam
 };
 
 

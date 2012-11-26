@@ -77,6 +77,11 @@ public:
 
      void ProcessAI() { OnProcessAI(); }
      void SetPlayer(CPlayer *p) { player = p; }
+
+	 ///// -- Adam
+	 //This is needed for figuring out if the enemy is dead before putting them on the radar in gui.cpp
+	 int getAIState() { return aiState; }
+	 ///// -- Adam
 };
 
 #endif
