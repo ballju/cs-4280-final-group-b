@@ -128,6 +128,10 @@ void CWorld::SetScreen(int width, int height)
 {
 	screenWidth = width;
 	screenHeight = height;
+
+	///// -- Adam
+	gui->setScreen(screenWidth, screenHeight);
+	///// -- Adam
 }
 
 void CWorld::Draw(CCamera *camera)
@@ -191,6 +195,10 @@ void CWorld::LoadWorld()
 		ogroEnemy->position.x = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
 		ogroEnemy->position.y = 0.0f;
 		ogroEnemy->position.z = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
+		
+		///// -- Adam
+		gui->setOgro(ogroEnemy);
+		///// -- Adam
 	}
 
 	// generate sods
@@ -205,10 +213,18 @@ void CWorld::LoadWorld()
 		sodEnemy->position.x = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
 		sodEnemy->position.y = 0.0f;
 		sodEnemy->position.z = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
+		
+		///// -- Adam
+		gui->setSod(sodEnemy);
+		///// -- Adam
 	}
 
 		
   // Phase 15 - End
+
+	///// -- Adam
+	gui->setPlayer(player);
+	///// -- Adam
 }
 // Phase 15 - Begin
 // CountObjectTypes

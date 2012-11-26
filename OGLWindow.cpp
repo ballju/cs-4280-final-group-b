@@ -32,6 +32,11 @@ bool OGLWindow::Init()
 	// Begin - Phase 11
 	gameWorld = new CWorld(gameCamera);
 	// End - Phase 11
+
+	///// -- Adam
+	gameWorld->SetScreen(m_windowWidth, m_windowHeight);
+	///// - Adam
+
     return true;
 }
 
@@ -68,6 +73,13 @@ void OGLWindow::SetupProjection(int width, int height)
 
     m_windowWidth = width;
     m_windowHeight = height;
+
+	///// -- Adam
+	//CWorld *world = OnGetWorld();
+	//world->SetScreen(width, height);
+	//gameWorld->SetScreen(width, height);
+	//OnGetWorld()->SetScreen(width, height); // send the width and height to the world (used for the gui) Called from winmain class
+	///// -- Adam
 }
 // Begin - Phase 17 Remove parameter
 void OGLWindow::Prepare()
