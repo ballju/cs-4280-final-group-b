@@ -46,16 +46,37 @@ void CSodEnemy::OnCollision(CObject *collisionObject)
 		// Phase 16 - Uncomment
 		else if (typeid(*collisionObject) == typeid(CRocket))
 		{
-			// kill the ogre
-			aiState = AI_DEAD;
-			velocity = CVector(0.0, 0.0, 0.0);
+			///// -- Adam
+
+			if (!static_cast<CRocket*>(collisionObject)->hitTarget)
+			{//If the rocket hits the enemy, make it so it only takes damage once
+				if(hitPoints > 0)
+				{
+					hitPoints -= 10;//minus 10 health
+				}
+
+				if (hitPoints <= 0)
+				{
+					///// -- Adam
+					
+					// kill the ogre
+					aiState = AI_DEAD;
+					velocity = CVector(0.0, 0.0, 0.0);
+
+					///// -- Adam
+				}
+				static_cast<CRocket*>(collisionObject)->hitTarget = true;
+			}
+				///// -- Adam
 		}
 	}
 }
 
 void CSodEnemy::OnPrepare() 
 {
-	float dirToPlayer;	// the angle of the enemy-player vector
+	///// -- Adam
+	//float dirToPlayer;	// the angle of the enemy-player vector
+	///// -- Adam
 
 	CVector diff;		// the vector from the enemy to the player
 	diff.x = position.x - player->position.x;
@@ -131,3 +152,38 @@ void CSodEnemy::OnProcessAI()
 			aiState = AI_UNCARING;
 	}
 }
+///// -- Adam
+void CSodEnemy::OnDraw(CCamera *camera)
+{
+	CEntity::OnDraw(camera);
+
+	glPushMatrix();
+	//x is front and back on the model
+	//y is left to right on the model
+	//z is up and down on the model
+	glTranslatef(0.0, 0.0, 25.0);//move it over their head
+	glRotatef(direction - dirToPlayer, 0.0, 0.0, 1.0);	// the angle of the enemy-player vector
+	glColor4f(0.0, 0.0, 0.0, 1.0);
+	glBegin(GL_QUADS);
+		glVertex3f(-15.0, 0, 0);
+		glVertex3f(15.0, 0, 0);
+		glVertex3f(15.0, 0, 5);
+		glVertex3f(-15.0, 0, 5);
+	glEnd();
+
+	if (hitPoints >= 50)
+		glColor4f(0.0, 1.0, 0.0, 1.0); // color -- green
+	else if (hitPoints >= 25)
+		glColor4f(1.0, 1.0, 0.0, 1.0); // color -- yellow
+	else
+		glColor4f(1.0, 0.0, 0.0, 1.0); // color -- red
+	glBegin(GL_QUADS);
+		glVertex3f(-14, -1, 1);
+		glVertex3f((GLfloat)hitPoints / (GLfloat)maxHP * 28 - 14, -1, 1);
+		glVertex3f((GLfloat)hitPoints / (GLfloat)maxHP * 28 - 14, -1, 4);
+		glVertex3f(-14, -1, 4);
+	glEnd();
+
+	glPopMatrix();
+}
+///// -- Adam

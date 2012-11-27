@@ -35,7 +35,13 @@ private:
 
 protected:
      int hitPoints;           // hit points the enemy has left
-     float distFromPlayer;    // distance this enemy is from player
+
+	 ///// -- Adam
+	 int maxHP;
+	 float dirToPlayer;	// the angle of the enemy-player vector
+	 ///// -- Adam
+     
+	 float distFromPlayer;    // distance this enemy is from player
      float runSpeed;          // speed of enemy when running
      AIState_t aiState;       // state of enemy thought
 
@@ -59,13 +65,23 @@ protected:
           }
      }
 
+	///// -- Adam
+	void OnDraw(CCamera *camera) { CEntity::OnDraw(camera); }
+	///// -- Adam
+
 public:
      CPlayer *player;
 
      CEnemy() 
      {
           hitPoints = 100;    // start with 100 hit points
-          isDead = false;     // enemy starts off alive
+		  
+		  ///// -- Adam
+		  maxHP = 100;
+		  dirToPlayer = 0;	// the angle of the enemy-player vector
+		  ///// -- Adam
+          
+		  isDead = false;     // enemy starts off alive
           velocity = CVector(0.0, 0.0, 0.0); // speed of enemy
           runSpeed = velocity.z;
           SetState(MODEL_IDLE);    // idle state

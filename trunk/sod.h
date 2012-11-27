@@ -26,6 +26,10 @@ protected:
 	void OnCollision(CObject *collisionObject);
 	void OnPrepare();
 
+	///// -- Adam
+	void OnDraw(CCamera *camera);
+	///// -- Adam
+
 public:
 	CSodEnemy() { Load(); }
 	CSodEnemy(float x, float z) { position.x = x; position.z = z; Load(); }

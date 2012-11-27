@@ -39,6 +39,10 @@ public:
 	CVector forward;		// forward vector of rocket (for pitch/dir)
 	bool isExplosion;
 
+	///// -- Adam
+	bool hitTarget;
+	///// -- Adam
+
 	CTexture *explosionTex;
 	CExplosion *explosion;
 
