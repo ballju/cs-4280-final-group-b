@@ -57,6 +57,10 @@ public:
 	void DrawLoser();
 
 	///// -- Adam
+	void drawHealth(); // draws the player's health bar
+	void drawStamina(); // draws the player's stamina bar
+	void drawRadar(); // draw the radar screen on the HUD
+
 	void setScreen(int w, int h); // set the screen whenever the screen changes (called from world class)
 
 	void setPlayer(CPlayer* p);

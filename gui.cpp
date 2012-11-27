@@ -141,109 +141,11 @@ void CGUI::Draw()
 	
 		// Ready - Put HUD drawing here
 
-		//Draw Stamina Bar // TODO: make it increase and become more solid as players get more tired.
-		int stamina = 100;
-		int staminaMax = 100;
-		glColor4f(0.8f, 0.8f, 0.3f, (GLfloat)stamina / staminaMax);//color -- yellow/tan
-		glBegin(GL_QUADS);
-			glVertex2i(20, 300);
-			glVertex2i(30, 300);
-			glVertex2i(30, (GLfloat)stamina / (GLfloat)staminaMax * 200 + 300);
-			glVertex2i(20, (GLfloat)stamina / (GLfloat)staminaMax * 200 + 300);
-		glEnd();
-		glColor4f(1.0f, 1.0f, 1.0f, (GLfloat)stamina / staminaMax);
-		glLineWidth(2.0);
-		glBegin(GL_LINE_LOOP);
-			glVertex2i(19, 299);
-			glVertex2i(31, 299);
-			glVertex2i(31, 501);
-			glVertex2i(19, 501);
-		glEnd();
-		//End Draw Stamina Bar
+		drawStamina(); // Draw the stamina bar on the HUD
+		
+		drawHealth(); // Draw the health bar on the HUD
 
-		//Draw Health Bar //TODO: make it shrink as HP decreases
-		//int hp = 100; // temporary hp until we actually get hp implemented
-		int hpMax = 100; 
-		if (player->hp >= 50)
-			glColor3f(0.0f, 1.0f, 0.0f);
-		else if (player->hp >= 25)
-			glColor3f(1.0f, 1.0f, 0.0f);
-		else
-			glColor3f(1.0f, 0.0f, 0.0f); // color -- red
-		glBegin(GL_QUADS);
-			glVertex2i(200, 570);
-			glVertex2i((GLfloat)player->hp / (GLfloat)hpMax * 400 + 200, 570);
-			glVertex2i((GLfloat)player->hp / (GLfloat)hpMax * 400 + 200, 580);
-			glVertex2i(200, 580);
-		glEnd();
-
-		glColor3f(1.0f, 1.0f, 1.0f);
-		glLineWidth(2.0);
-		glBegin(GL_LINE_LOOP);
-			glVertex2i(199, 569);
-			glVertex2i(601, 569);
-			glVertex2i(601, 581);
-			glVertex2i(199, 581);
-		glEnd();
-	
-		//End Draw Health Bar
-
-		//Draw Radar Screen
-		//This draws a rectangular radar screen and fills it with dots for each enemy and for your player.
-		//The enemies show as black dots when idle and turn to red when you are in sight.
-		glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-		glBegin(GL_LINE_LOOP);
-			glVertex2i(20, 20);
-			glVertex2i(20, 200);
-			glVertex2i(200, 200);
-			glVertex2i(200, 20);
-		glEnd();
-
-		//This is only working for one sod and one ogro right now. I need to build a flexible list that can handle as many sods and ogros as it needs too
-		//Then loop through and check to make sure it's not dead before showing it on the radar
-		//rndInt = (rand() % (MAX_ENEMIES-4)) + 4;	// random # from 4 to MAX -- this is how many enemies world.cpp creates -- 10
-		glPointSize(3.0);
-		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
-		glBegin(GL_POINTS);
-			glVertex2i(player->position.z * 180.0 / 1600.0 + 20, player->position.x * 180.0 / 1600.0 + 20);
-			for (int i = 0; i < sodIndex; i++)
-			{
-				if (sod[i] != 0)
-				{
-					if (sod[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
-						glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-					else
-						glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-					if (sod[i]->getAIState() == AI_DEAD)
-					{
-						sod[i] = 0;//stop trying dead ones
-					}
-					else
-					{//convert the sod's location into radar coordinates and draw it on the screen
-						glVertex2i(sod[i]->position.z * 180.0 / 1600.0 + 20, sod[i]->position.x * 180.0 / 1600.0 + 20);
-					}
-				}
-			}
-			for (int i = 0; i < ogroIndex; i++)
-			{
-				if (ogro[i] != 0)
-				{
-					if (ogro[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
-						glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-					else
-						glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-					if (ogro[i]->getAIState() == AI_DEAD)
-					{
-						ogro[i] = 0;//stop trying dead ones
-					}
-					else
-					{//convert the ogro's location into radar coordinates and draw it on the screen
-						glVertex2i(ogro[i]->position.z * 180.0 / 1600.0 + 20, ogro[i]->position.x * 180.0 / 1600.0 + 20);
-					}
-				}
-			}
-		glEnd();
-		//End Draw Radar Screen
+		drawRadar(); // Draw the radar screen on the HUD
 
 		//End HUD Drawing
 	
@@ -268,6 +170,133 @@ void CGUI::Draw()
 }
 
 ///// -- Adam
+void CGUI::drawHealth()// draws the player's health bar
+{
+	//Draw Health Bar //TODO: make it shrink as HP decreases
+	//int hp = 100; // temporary hp until we actually get hp implemented
+	int hpMax = 100; 
+	if (player->hp >= 50)
+		glColor3f(0.0f, 1.0f, 0.0f);
+	else if (player->hp >= 25)
+		glColor3f(1.0f, 1.0f, 0.0f);
+	else
+		glColor3f(1.0f, 0.0f, 0.0f); // color -- red
+	glBegin(GL_QUADS);
+		glVertex2i(200, 570);
+		glVertex2i((GLfloat)player->hp / (GLfloat)hpMax * 400 + 200, 570);
+		glVertex2i((GLfloat)player->hp / (GLfloat)hpMax * 400 + 200, 580);
+		glVertex2i(200, 580);
+	glEnd();
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glLineWidth(2.0);
+	glBegin(GL_LINE_LOOP);
+		glVertex2i(199, 569);
+		glVertex2i(601, 569);
+		glVertex2i(601, 581);
+		glVertex2i(199, 581);
+	glEnd();
+	
+	//End Draw Health Bar
+}
+void CGUI::drawStamina()// draws the player's stamina bar
+{
+	//Draw Stamina Bar // TODO: make it increase and become more solid as players get more tired.
+	int stamina = 100;
+	int staminaMax = 100;
+	glColor4f(0.8f, 0.8f, 0.3f, (GLfloat)stamina / staminaMax);//color -- yellow/tan
+	glBegin(GL_QUADS);
+		glVertex2i(20, 300);
+		glVertex2i(30, 300);
+		glVertex2i(30, (GLfloat)stamina / (GLfloat)staminaMax * 200 + 300);
+		glVertex2i(20, (GLfloat)stamina / (GLfloat)staminaMax * 200 + 300);
+	glEnd();
+	glColor4f(1.0f, 1.0f, 1.0f, (GLfloat)stamina / staminaMax);
+	glLineWidth(2.0);
+	glBegin(GL_LINE_LOOP);
+		glVertex2i(19, 299);
+		glVertex2i(31, 299);
+		glVertex2i(31, 501);
+		glVertex2i(19, 501);
+	glEnd();
+	//End Draw Stamina Bar
+}
+void CGUI::drawRadar()// draw the radar screen on the HUD
+{
+	//Draw Radar Screen
+	//This draws a rectangular radar screen and fills it with dots for each enemy and for your player.
+	//The enemies show as black dots when idle and turn to red when you are in sight.
+	glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+	glBegin(GL_LINE_LOOP);//Draw the outline of the radar screen
+		glVertex2i(20, 20);
+		glVertex2i(20, 200);
+		glVertex2i(200, 200);
+		glVertex2i(200, 20);
+	glEnd();
+
+	//Draw the player on the map
+	glPushMatrix(); // save the state
+	
+	glTranslatef(player->position.z * 180.0 / 1600.0 + 20, player->position.x * 180.0 / 1600.0 + 20, 0);//Translate out to the correct location
+	glRotatef(-player->direction + 90, 0, 0, 1); //rotate about the z axis
+		//it's negative because we're drawing the radar in the opposite direction that the player->direction attribute works
+		//plus ninety to get it to line up right.
+
+	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+	glBegin(GL_TRIANGLES);
+		glVertex2i(10, 0);//Draw our triangle's nose
+		glVertex2i(-5, 5); //draw the back of the triangle
+		glVertex2i(-5, -5);
+	glEnd();
+	glPopMatrix(); // reload the saved state
+		
+	//Then loop through and check to make sure it's not dead before showing it on the radar
+	//rndInt = (rand() % (MAX_ENEMIES-4)) + 4;	// random # from 4 to MAX -- this is how many enemies world.cpp creates -- 10
+	glPointSize(3.0);
+	glBegin(GL_POINTS);
+		//Draw the Sods on the map
+		for (int i = 0; i < sodIndex; i++)
+		{
+			if (sod[i] != 0)
+			{
+				if (sod[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
+					glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				else
+					glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+				if (sod[i]->getAIState() == AI_DEAD)
+				{
+					sod[i] = 0;//stop trying dead ones
+				}
+				else
+				{//convert the sod's location into radar coordinates and draw it on the screen
+					glVertex2i(sod[i]->position.z * 180.0 / 1600.0 + 20, sod[i]->position.x * 180.0 / 1600.0 + 20);
+				}
+			}
+		}
+
+		//Draw the Ogros on the map
+		for (int i = 0; i < ogroIndex; i++)
+		{
+			if (ogro[i] != 0)
+			{
+				if (ogro[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
+					glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				else
+					glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+				if (ogro[i]->getAIState() == AI_DEAD)
+				{
+					ogro[i] = 0;//stop trying dead ones
+				}
+				else
+				{//convert the ogro's location into radar coordinates and draw it on the screen
+					glVertex2i(ogro[i]->position.z * 180.0 / 1600.0 + 20, ogro[i]->position.x * 180.0 / 1600.0 + 20);
+				}
+			}
+		}
+	glEnd();
+	//End Draw Radar Screen
+} 
+
 //This function is used to give the GUI the width and height values of the screen. It is called from the world.cpp file
 //The GUI uses these to determine how to set the perspective back to 3D and to know the HUD dimensions.
 void CGUI::setScreen(int w, int h) 
