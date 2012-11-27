@@ -11,6 +11,10 @@ CRocket::CRocket()
 	explosion = NULL;
 	explosionTex = new CTexture;
 
+	///// -- Adam
+	hitTarget = false;
+	///// -- Adam
+
 	Load();
 }
 
