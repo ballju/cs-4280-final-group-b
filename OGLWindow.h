@@ -64,10 +64,14 @@ public:
 	void OnMouseDownL(int x, int y);
 	// End - Phase 16
 
-	/////
+	///// -- Adam
+	void OnMouseDownR(int x, int y);
+	///// -- Adam
+
+	///// -- Adam
 	int getWidth() {return m_windowWidth;}
 	int getHeight() {return m_windowHeight;}
-	/////
+	///// -- Adam
 };
 
 #endif

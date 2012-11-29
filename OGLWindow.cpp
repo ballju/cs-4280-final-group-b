@@ -205,6 +205,17 @@ void OGLWindow::OnMouseDownL(int x, int y)
 //		OnMouseDownL(0,0);
 }
 // End - Phase 16
+
+///// -- Adam
+void OGLWindow::OnMouseDownR(int x, int y) 
+{
+	if (!gameWorld->IsGameDone())
+		gameWorld->player->FireWeapon2();
+//	else
+//		OnMouseDownL(0,0);
+}
+///// -- Adam
+
 // Begin - Phase 17 Add float parameter
 void OGLWindow::Render(float deltaTime)
 // End - Phase 17

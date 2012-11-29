@@ -135,6 +135,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 		// End - Phase 16
 
+	///// -- Adam
+	case WM_RBUTTONDOWN:		// left mouse button
+		g_glRender->OnMouseDownR(g_glRender->GetMouseX(lParam), g_glRender->GetMouseY(lParam));
+		break;
+	///// -- Adam
+
 	default:
 		break;
 	}
