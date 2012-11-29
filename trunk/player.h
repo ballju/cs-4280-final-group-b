@@ -101,6 +101,11 @@ public:
 // Phase 14 - Take out until Rocket is introduced
 // Phase 16 - Uncomment
 	void FireWeapon();
+
+	///// -- Adam
+	void FireWeapon2();
+	///// -- Adam
+
 // Phase 14 - Take out until AudioSystem in introduced
 // Phase 19 - Uncomment the following	
 	void SetAudioSystem(CDirectXAudio *aSys) { audioSys = aSys; }

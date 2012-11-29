@@ -41,6 +41,7 @@ public:
 
 	///// -- Adam
 	bool hitTarget;
+	bool isRocket;
 	///// -- Adam
 
 	CTexture *explosionTex;
@@ -48,6 +49,10 @@ public:
 
 	CRocket();
 	~CRocket();
+
+	///// -- Adam
+	CRocket(float s);
+	///// -- Adam
 
 	void Load();
 	void Unload();

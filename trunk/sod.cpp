@@ -52,7 +52,14 @@ void CSodEnemy::OnCollision(CObject *collisionObject)
 			{//If the rocket hits the enemy, make it so it only takes damage once
 				if(hitPoints > 0)
 				{
-					hitPoints -= 10;//minus 10 health
+					if(static_cast<CRocket*>(collisionObject)->isRocket == true)
+					{
+						hitPoints -= 50;//minus 10 health
+					}
+					else
+					{
+						hitPoints -= 1;
+					}
 				}
 
 				if (hitPoints <= 0)

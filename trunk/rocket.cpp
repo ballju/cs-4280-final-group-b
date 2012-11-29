@@ -13,10 +13,32 @@ CRocket::CRocket()
 
 	///// -- Adam
 	hitTarget = false;
+	isRocket = true;//this is a rocket and not a bullet
 	///// -- Adam
 
 	Load();
 }
+
+///// -- Adam
+CRocket::CRocket(float s)
+{
+	velocity = CVector(0.0, 0.0, s);
+	acceleration = CVector(0.0, 0.0, 0.0);
+	distanceTravel = 0.0;
+	size = 1;
+	isExplosion = false;
+
+	explosion = NULL;
+	explosionTex = new CTexture;
+
+	///// -- Adam
+	hitTarget = false;
+	isRocket = false;//let it know that this is a bullet and not a rocket
+	///// -- Adam
+
+	Load();
+}
+///// -- Adam
 
 CRocket::~CRocket()
 {
@@ -98,17 +120,41 @@ void CRocket::OnCollision(CObject *collisionObject)
 		{
 			isExplosion = true;
 			velocity = CVector(0.0, 0.0, 0.0);
-			explosion = new CExplosion(500, position, 8.0, explosionTex->texID);
+			///// -- Adam
+			if(isRocket == true)
+			{
+			///// -- Adam
+				explosion = new CExplosion(500, position, 8.0, explosionTex->texID);
 // Phase 19 - Uncomment the following
-			PlaySound();
+				PlaySound();
+			///// -- Adam
+			}
+			else
+			{
+				explosion = new CExplosion(5, position, 1.0, explosionTex->texID);
+			}
+
+			///// -- Adam
 		}
 		if (typeid(*collisionObject) == typeid(CSodEnemy))
 		{
 			isExplosion = true;
 			velocity = CVector(0.0, 0.0, 0.0);
+			///// -- Adam
+			if(isRocket == true)
+			{
+			///// -- Adam
 			explosion = new CExplosion(500, position, 8.0, explosionTex->texID);
 // Phase 19 - Uncomment the following		
 			PlaySound();
+			///// -- Adam
+			}
+			else
+			{
+				explosion = new CExplosion(5, position, 1.0, explosionTex->texID);
+			}
+
+			///// -- Adam
 		}
 	}
 }
@@ -168,6 +214,10 @@ void CRocket::OnPrepare()
 			isExplosion = false;
 
 			isDead = true;
+
+			///// -- Adam
+			
+			///// -- Adam
 		}
 	}
 }
