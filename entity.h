@@ -58,6 +58,7 @@ public:
 	int stateStart, stateEnd;	// state keyframe start/end
 	float deltaT;
 	float animSpeed;
+
 // Phase 15 - Comment out the following
 // Phase 19 - Uncomment the following
    void LoadAudio(XACTINDEX index);

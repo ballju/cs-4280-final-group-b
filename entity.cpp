@@ -89,6 +89,13 @@ void CEntity::OnPrepare()
 		break;
 	case MODEL_CROUCH:
 		break;
+	/****************Faith Satterthwaite 12/1/2012***********************/
+	case MODEL_WALK:
+		stateStart = 42;
+		stateEnd = 44;
+		velocity = CVector(-15.0, -15.0, -15.0);
+		break;
+	/*******************************************************************/
 	case MODEL_RUN:
 		stateStart = 40;
 		stateEnd = 46;

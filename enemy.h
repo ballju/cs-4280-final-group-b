@@ -26,7 +26,12 @@ enum AIState_t
 {
 	AI_UNCARING,	// enemy is not scared and does not care
 	AI_SCARED,	// enemy is scared and running away
-	AI_DEAD
+	AI_DEAD,
+
+	/**************************Faith Satterthwaite 11/27/2012************************/
+	AI_ATTACK,	// enemy attacks player
+	AI_BACKUP
+	/*******************************************************************************/
 };
 
 class CEnemy : public CEntity

@@ -31,11 +31,23 @@ protected:
 	///// -- Adam
 
 public:
-	CSodEnemy() { Load(); }
+	/*******************Faith Satterthwaite 11/27/2012**************************/
+	CSodEnemy()
+	{
+		Load();
+		hitTarget = false;
+		attackPlayer = false;	//11/30/2012
+	}
+	/***************************************************************************/
 	CSodEnemy(float x, float z) { position.x = x; position.z = z; Load(); }
 	~CSodEnemy() {}
 
 	void Load();
+	
+	/*******************Faith Satterthwaite 11/27/2012**************************/
+	bool hitTarget;
+	bool attackPlayer; //11/29/2012
+	/***************************************************************************/
 };
 
 

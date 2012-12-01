@@ -39,32 +39,6 @@ private:
 protected:
 	// Phase 14 - Take out until enemies are introduced
 	// Phase 15 - Uncomment because enemies exist now
-void OnCollision(CObject *collisionObject)
-	{
-		if (typeid(*collisionObject) == typeid(CTerrain))
-		{
-			position.y = ((CTerrain*)collisionObject)->GetHeight(position.x, position.z) + size;
-		}
-		else if (typeid(*collisionObject) == typeid(COgroEnemy))
-		{
-			if (camera)
-			{
-				if (camera->velocity.z > 0.0)
-					camera->velocity = CVector(0.0, 0.0, 0.0);
-			}
-		}
-		else if (typeid(*collisionObject) == typeid(CSodEnemy))
-		{
-			if (camera)
-			{
-				if (camera->velocity.z > 0.0)
-					camera->velocity = CVector(0.0, 0.0, 0.0);
-			}
-		}
-		else if (typeid(*collisionObject) == typeid(CPlayer))
-		{
-		}
-	}
 
 	void OnPrepare()
 	{
@@ -83,14 +57,20 @@ public:
 	///// -- Adam
 	int hp;
 	///// -- Adam
+	
+	/*****************************Faith Satterthwaite 11/27/2012***************************/
+	void OnCollision(CObject *collisionObject);
+	/**************************************************************************************/
 
-	CPlayer() { size = 7.0f; camera = NULL; terrain = NULL; 
-	// Phase 14 - Take these out for now
-	// Phase 19 - Uncomment the following
-	audioSys = NULL;
-	///// -- Adam
-	hp = 100;
-	///// -- Adam
+	CPlayer() 
+	{ 
+		size = 7.0f; camera = NULL; terrain = NULL; 
+		// Phase 14 - Take these out for now
+		// Phase 19 - Uncomment the following
+		audioSys = NULL;
+		///// -- Adam
+		hp = 100;
+		///// -- Adam
 	}
 	~CPlayer() {}
 

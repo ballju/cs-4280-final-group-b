@@ -31,11 +31,23 @@ protected:
 	///// -- Adam
 
 public:
-	COgroEnemy() { Load(); }
+	/*******************Faith Satterthwaite 12/1/2012**************************/
+	COgroEnemy()
+	{
+		Load();
+		bool hitTarget = false;
+		bool attackPlayer = false;
+	}
+	/***************************************************************************/
 	COgroEnemy(float x, float z) { position.x = x; position.z = z; Load(); }
 	~COgroEnemy() {}
 
 	void Load();
+	
+	/*******************Faith Satterthwaite 12/1/2012**************************/
+	bool hitTarget;
+	bool attackPlayer;
+	/***************************************************************************/
 };
 
 

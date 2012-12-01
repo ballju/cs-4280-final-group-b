@@ -29,6 +29,15 @@ void COgroEnemy::OnCollision(CObject *collisionObject)
 			aiState = AI_UNCARING;
 		}
 
+		/*********************************Faith Satterthwaite 12/1/2012*********************************/
+		// if this enemy collides with the player
+		else	if (typeid(*collisionObject) == typeid(CPlayer))
+		{
+			direction = (dirToPlayer + 90) + ((rand()%30)-15);		// set the direction of the enemy
+			attackPlayer = false;
+		}
+		/***********************************************************************************************/
+
 		// if this enemy collides with the terrain (always)
 		else	if (typeid(*collisionObject) == typeid(CTerrain))
 		{
@@ -109,6 +118,19 @@ void COgroEnemy::OnPrepare()
 			modelState = MODEL_RUN;
 			velocity = CVector(0.0, 0.0, 15.0);
           break;
+	 /****************************Faith Satterthwaite 12/1/2012****************************/
+	case AI_BACKUP:
+			modelState = MODEL_WALK;
+			velocity = CVector(0.0, 0.0, -10.0);
+		break;
+	/****************************Faith Satterthwaite 11/27/2012****************************/
+	case AI_ATTACK:
+		direction = (dirToPlayer + 90);		// set the direction of the enemy
+
+			modelState = MODEL_RUN;
+			velocity = CVector(0.0, 0.0, 15.0);
+		break;
+	/**************************************************************************************/
      case AI_UNCARING:
           direction = float(rand() % 360);
           if ((rand() % 4) != 0)
@@ -155,9 +177,24 @@ void COgroEnemy::OnProcessAI()
           // if the player is close enough, the enemy should become scared
           distFromPlayer = sqrt(diff.x*diff.x + diff.y*diff.y + diff.z*diff.z);
           if (distFromPlayer < 100.0)
-               aiState = AI_SCARED;
-          else
-               aiState = AI_UNCARING;
+			/****************************Faith Satterthwaite 11/27/2012****************************/
+			{	
+				aiState = AI_ATTACK;
+				if(attackPlayer == false)	//Added if statement 12/1/2012
+				{
+					//If player collides (attackPlayer = false) move enemy backwards
+					aiState = AI_BACKUP;
+					if(distFromPlayer > 25)
+					{
+						//Now come at player again
+						attackPlayer = true;
+						aiState = AI_ATTACK;
+					}
+				}
+			}
+			else
+				aiState = AI_UNCARING;
+			/**************************************************************************************/
      }
 }
 

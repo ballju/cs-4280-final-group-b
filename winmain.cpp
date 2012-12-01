@@ -267,7 +267,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevious, LPSTR lpCmdString,
 
 	g_glRender->Init();
 
-	while (1)/////This is the message loop to prompt the user and wait for input
+	while (1)
 	{
 		// Phase 17 - change lists or Prepare and Render calls
 		g_glRender->Prepare();

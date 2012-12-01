@@ -41,7 +41,6 @@ private:
 	CPlayer *player;
 	CEnemy *sod[MAX_ENEMIES], *ogro[MAX_ENEMIES];
 	int sodIndex, ogroIndex;
-	bool gameOver;
 	///// -- Adam
 
 public:
@@ -66,6 +65,7 @@ public:
 	void setPlayer(CPlayer* p);
 	void setSod(CEnemy* s);
 	void setOgro(CEnemy* o);
+	bool gameOver;
 	///// -- Adam
 };
 
