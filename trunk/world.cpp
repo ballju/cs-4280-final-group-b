@@ -161,8 +161,10 @@ void CWorld::OnPrepare()
 	terrain->Prepare();
 	// End - Phase 12
 	// Phase 15 - Begin
-	if ((numOgros + numSods <= 0) || (timeElapsed >= timeStart))
+	//********************************Faith Satterthwaite 12/1/2012************************************/
+	if ((numOgros + numSods <= 0) || (timeElapsed >= timeStart) || (player->hp <= 0))
 		gameDone = true;
+	/**************************************************************************************************/
 	// Phase 15 - End
 	
 }

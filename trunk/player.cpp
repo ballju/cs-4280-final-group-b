@@ -43,3 +43,22 @@ void CPlayer::FireWeapon2()
 	newRocket->AttachTo(terrain);
 }
 ///// -- Adam
+
+/*********************************Faith Satterthwaite 11/27/2012*********************************/
+void CPlayer::OnCollision(CObject *collisionObject)
+{		
+	// if Sod enemy collides with the player
+	if (typeid(*collisionObject) == typeid(CSodEnemy))
+	{
+		if(hp > 0)
+			hp -= .10;	//minus 10 health
+	}
+
+	// if Ogro enemy collides with the player
+	if (typeid(*collisionObject) == typeid(COgroEnemy))
+	{
+		if(hp > 0)
+			hp -= .20;	//minus 20 health
+	}
+}
+/***********************************************************************************************/

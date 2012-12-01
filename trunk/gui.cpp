@@ -196,6 +196,11 @@ void CGUI::drawHealth()// draws the player's health bar
 		glVertex2i(601, 581);
 		glVertex2i(199, 581);
 	glEnd();
+
+	/**************************Faith Satterthwaite 12/1/2012******************************/
+	if(player->hp <= 0)
+		DrawLoser();
+	/*************************************************************************************/
 	
 	//End Draw Health Bar
 }

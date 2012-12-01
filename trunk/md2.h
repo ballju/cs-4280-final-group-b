@@ -34,7 +34,10 @@ enum modelState_t
 	MODEL_RUN,		// running animation
 	MODEL_JUMP,		// jumping animation
 	MODEL_FIRE,		// model shooting gun
-	MODEL_DIE			// model dying
+	MODEL_DIE,			// model dying
+	/*********************Faith Satterthwaite 12/1/2012**************************/
+	MODEL_WALK
+	/****************************************************************************/
 };
 
 /*
