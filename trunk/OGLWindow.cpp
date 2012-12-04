@@ -130,29 +130,43 @@ void OGLWindow::OnMouseMove(int x, int y)
 	if (!gameWorld->IsGameDone())
 	{
 	// Areas on screen where directional movement is pegged
-	if( mX < 30)
-		gameCamera->yaw -= 1.0f*mouseSensitivity;
-	if( mX > sizeX - 30)
-		gameCamera->yaw += 1.0f*mouseSensitivity;
-	if( mY < 30)
-		gameCamera->pitch += 1.0f*mouseSensitivity;
-	if( mY > sizeY - 30)
-		gameCamera->pitch -= 1.0f*mouseSensitivity;
+	if( mX < 200)
+	{
+		//gameCamera->yaw -= 1.0f*mouseSensitivity;
+		SetCursorPos(sizeX/2,sizeY/2);
+	}
+	if( mX > sizeX - 200)
+	{
+		//gameCamera->yaw += 1.0f*mouseSensitivity;
+		SetCursorPos(sizeX/2,sizeY/2);
+	}
+	if( mY < 200)
+	{
+		//gameCamera->pitch += 1.0f*mouseSensitivity;
+		SetCursorPos(sizeX/2,sizeY/2);
+	}
+	if( mY > sizeY - 200)
+	{
+		//gameCamera->pitch -= 1.0f*mouseSensitivity;
+		SetCursorPos(sizeX/2,sizeY/2);
+	}
 
 
 	if (dx < 0)
-		gameCamera->yaw -= 0.25f*mouseSensitivity;
+		gameCamera->yaw -= 0.5f*mouseSensitivity;
 	if (dx > 0)
-		gameCamera->yaw += 0.25f*mouseSensitivity;
+		gameCamera->yaw += 0.5f*mouseSensitivity;
 // The following four lines commented out for Phase 6
 	// Uncommented for Phase 7
 	if (dy < 0)
-		gameCamera->pitch += 0.25f*mouseSensitivity;
+		gameCamera->pitch +=0.5f*mouseSensitivity;
 	if (dy > 0)
-		gameCamera->pitch -= 0.25f*mouseSensitivity;
+		gameCamera->pitch -= 0.5f*mouseSensitivity;
 
-	oldX = mX;
-	oldY = mY;
+	
+	oldX=mX;
+	oldY=mY;
+	
 	}
 }
 
@@ -178,11 +192,11 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 			sprint=false;
 			gameCamera->position.y-=1;
 			break;
-		case VK_SPACE:
+		/*case VK_SPACE:
 			gameWorld->player->stamina+=0.25;
 			if(gameWorld->player->stamina>=gameWorld->player->maxStam)
 				gameWorld->player->stamina=gameWorld->player->maxStam;
-			break;
+			break;*/
 		case 0x57:
 			if(sprint)
 			{
