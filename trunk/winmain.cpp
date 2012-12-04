@@ -189,24 +189,24 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevious, LPSTR lpCmdString,
 		MessageBox (NULL,"Error: Cannot Register Class","ERROR!",MB_OK);
 		return (0);
 	}
-
+	//TOM
 	// Start - Phase 3
-	sprintf(str, "Welcome to Shooter Game!\n\nKeys:\n<Up Arrow> - Forward\n<Down Arrow> - Backward\n<Left Arrow> - Left Strafe\n<Right Arrow> - Right Strafe");
-	strcat(str, "\n\nLeft mouse button fires rockets.\nMove mouse to look around.\n\n");
+	sprintf(str, "Welcome to Shooter Game!\n\nKeys:\n<W> - Forward\n<S> - Backward\n<A> - Left Strafe\n<D> - Right Strafe\n<Shift> - Toggle Sprint\n<Ctrl> - Toggle Sneak\n<Space> Regain Stamina");
+	strcat(str, "\n\nLeft mouse button fires bullets, right mouse button fires rockets.\nMove mouse to look around.\n\n");
 	strcat(str, "Numpad '+' - Increase mouse sensitivity\nNumpad '-' - Decrease mouse sensitivity\n\n");
 	strcat(str, "Created for WSU CS4280\nby Brian Rague.\n");
 		
 	MessageBox(NULL, str, "Welcome!", MB_OK);
 
-	sprintf(str, "Shooter Game\n\n\nYou have 5 minutes to shoot all of the enemies on the terrain using your searching skills\n");
-	strcat(str, "and your rockets. Can you do it?");
+	sprintf(str, "Shooter Game\n\n\nYou have 5 minutes to shoot all of the enemies on the terrain with your radar\n");
+	strcat(str, "and your weapons. Can you do it?");
 	MessageBox(NULL, str, "Welcome!", MB_OK);
-
+	//TOM
 		
-	if (MessageBox(NULL, "We are going to run in 800x600x32 mode, would you like to run in fullscreen?", "Fullscreen?", MB_YESNO) == IDYES)
-		fullscreen = true;
-	else
-		fullscreen = false;
+	//if (MessageBox(NULL, "We are going to run in 800x600x32 mode, would you like to run in fullscreen?", "Fullscreen?", MB_YESNO) == IDYES)
+		//fullscreen = true;
+	//else
+		fullscreen = false;//never run in fullscreen. Too many problems currently
 
 
 	// End - Phase 3

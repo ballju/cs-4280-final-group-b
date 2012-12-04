@@ -66,6 +66,8 @@ public:
 	int sodIndex, ogroIndex, ammo;
 	float recoveryTime;
 	///// -- Adam
+	float stamina;//TOM
+	int maxStam;//TOM
 	
 	/*****************************Faith Satterthwaite 11/27/2012***************************/
 	void OnCollision(CObject *collisionObject);
@@ -84,6 +86,8 @@ public:
 		sodIndex = ogroIndex = ammo = 0;
 		 recoveryTime = 0.0;
 		///// -- Adam
+	stamina=100;//TOM
+	maxStam=100;//TOM
 	}
 	~CPlayer() {}
 

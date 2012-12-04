@@ -42,6 +42,10 @@ public:
 
 	bool Init();
 	bool Shutdown();
+	//TOM
+	bool sprint;
+	bool walk;
+	//TOM
 
 	void SetupProjection(int width, int height);
 	// Begin - Phase 17 Change parameter lists
