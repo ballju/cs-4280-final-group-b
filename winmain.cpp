@@ -282,7 +282,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevious, LPSTR lpCmdString,
 		if (PeekMessage (&msg, hwnd, 0, 0, PM_REMOVE))
 		{
 			
-			TranslateMessage(&msg);
+			//TranslateMessage(&msg);
 			DispatchMessage (&msg);
 			if (msg.message == WM_QUIT) 
 				break;
