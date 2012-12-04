@@ -208,20 +208,22 @@ void CCamera::Animate(scalar_t deltaTime)
      float strafeSpeed = velocity.x * deltaTime;
 
 	// speed limit
-     if (speed > 15.0)
-          speed = 15.0;
-     if (strafeSpeed > 15.0)
-          strafeSpeed = 15.0;
-     if (speed < -15.0)
-          speed = -15.0;
-     if (strafeSpeed < -15.0)
-          strafeSpeed = -15.0;
+     /*if (speed > 60.0)
+          speed = 60.0;
+     if (strafeSpeed > 60.0)
+          strafeSpeed = 60.0;
+     if (speed < -60.0)
+          speed = -60.0;
+     if (strafeSpeed < -60.0)
+          strafeSpeed = -60.0;*/
 
+	//TOM
 	// friction slows down movements
      if (velocity.Length() > 0.0)
-          acceleration = -velocity * 1.5f;
-
-     velocity += acceleration*deltaTime;
+          //acceleration = -velocity * 1.5f;
+		  velocity=CVector(0.0,position.y,0.0);
+     //velocity += acceleration*deltaTime;
+	 //TOM
 
 	// calculate new position of camera
      position.x += float(cos(DEG2RAD(yaw + 90.0)))*strafeSpeed;
