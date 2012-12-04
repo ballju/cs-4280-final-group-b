@@ -109,9 +109,21 @@ void CRocket::OnCollision(CObject *collisionObject)
 			{
 				isExplosion = true;
 				velocity = CVector(0.0, 0.0, 0.0);
-				explosion = new CExplosion(500, position, 8.0, explosionTex->texID);
-// Phase 19 - Uncomment the following
-				PlaySound();
+				///// -- Adam
+				if(isRocket == true)
+				{
+				///// -- Adam
+					explosion = new CExplosion(500, position, 8.0, explosionTex->texID);
+	// Phase 19 - Uncomment the following
+					PlaySound();
+				///// -- Adam
+				}
+				else
+				{
+					explosion = new CExplosion(5, position, 1.0, explosionTex->texID);
+				}
+					
+				///// -- Adam
 			}
 		
 			// do explosion

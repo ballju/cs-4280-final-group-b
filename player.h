@@ -28,6 +28,10 @@
 #include "object.h"
 #include "terrain.h"
 
+///// -- Adam
+#define MAX_ENEMIES 10
+///// -- Adam
+
 class CPlayer : public CObject
 {
 private:
@@ -56,6 +60,11 @@ public:
 	
 	///// -- Adam
 	int hp;
+	float timer; // used for the rate of fire for the secondary weapon
+	bool fireWeapon;// used for the rate of fire for the secondary weapon
+	CEnemy *sod[MAX_ENEMIES], *ogro[MAX_ENEMIES];
+	int sodIndex, ogroIndex, ammo;
+	float recoveryTime;
 	///// -- Adam
 	
 	/*****************************Faith Satterthwaite 11/27/2012***************************/
@@ -70,6 +79,10 @@ public:
 		audioSys = NULL;
 		///// -- Adam
 		hp = 100;
+		timer = 0;
+		fireWeapon = false;//start off not shooting
+		sodIndex = ogroIndex = ammo = 0;
+		 recoveryTime = 0.0;
 		///// -- Adam
 	}
 	~CPlayer() {}
@@ -84,6 +97,10 @@ public:
 
 	///// -- Adam
 	void FireWeapon2();
+	void setSod(CEnemy* s);
+	void setOgro(CEnemy* o);
+	void killSod(CEnemy* s);
+	void killOgro(CEnemy* o);
 	///// -- Adam
 
 // Phase 14 - Take out until AudioSystem in introduced

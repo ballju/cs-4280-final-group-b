@@ -22,7 +22,6 @@ CWorld::~CWorld()
 	// Begin - Phase 19
 
 	audioSystem = NULL;
-
 }
 
 CWorld::CWorld(CCamera *c)
@@ -94,6 +93,21 @@ void CWorld::Animate(float deltaTime)
 	gui->SetCurrentTime(timeStart - timeElapsed);
 	// End - Phase 18
 
+	///// -- Adam
+	player->recoveryTime -= deltaTime;
+	if (player->recoveryTime < 0)
+		player->recoveryTime = 0;
+	//set the player's timer from here so that the weapon can shoot every so often
+	player->timer += deltaTime;
+	//do a firing loop here // decrease this decimal to make the rate of fire speed up
+	if (player->timer > .1) //if it's been enough time since we last fired
+	{
+		if (player->fireWeapon == true) // if the mouse button is down
+			player->FireWeapon2();
+		player->timer = 0;
+	}
+	///// -- Adam
+
 	// Phase 16 - Begin
 	if (!gameDone)
 		timeElapsed += deltaTime;
@@ -163,7 +177,12 @@ void CWorld::OnPrepare()
 	// Phase 15 - Begin
 	//********************************Faith Satterthwaite 12/1/2012************************************/
 	if ((numOgros + numSods <= 0) || (timeElapsed >= timeStart) || (player->hp <= 0))
+	{
 		gameDone = true;
+		///// -- Adam
+		player->fireWeapon = false; // stop firing your gun when the game is over
+		///// -- Adam
+	}
 	/**************************************************************************************************/
 	// Phase 15 - End
 	
@@ -189,17 +208,20 @@ void CWorld::LoadWorld()
 	// generate ogros
 	for (enemyIdx = 0; enemyIdx < numOgros; enemyIdx++)
 	{
-		ogroEnemy = new COgroEnemy;
+		ogroEnemy = new COgroEnemy();
 		ogroEnemy->AttachTo(terrain);
 		ogroEnemy->SetPlayer(player);
 		// Phase 19 - Uncomment
 		ogroEnemy->SetAudioSystem(audioSystem);
 		ogroEnemy->position.x = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
 		ogroEnemy->position.y = 0.0f;
-		ogroEnemy->position.z = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
+		//ogroEnemy->position.z = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
+		ogroEnemy->position.z = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul() - 220) + 220);
+		///// -- Adam -- I changed this position x to make them appear 220 units off to the side so they won't generate on top of you
 		
 		///// -- Adam
-		gui->setOgro(ogroEnemy);
+		//gui->setOgro(ogroEnemy);
+		player->setOgro(ogroEnemy);
 		///// -- Adam
 	}
 
@@ -212,12 +234,15 @@ void CWorld::LoadWorld()
 		// Phase 19 - Uncomment
 		sodEnemy->SetAudioSystem(audioSystem);
 //		sodEnemy->LoadAudio(audioSystem, "chimes.wav", false);
-		sodEnemy->position.x = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
+		//sodEnemy->position.x = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
+		sodEnemy->position.x = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul() - 220) + 220);
+		///// -- Adam -- I changed this position x to make them appear 220 units above so they won't generate on top of you
 		sodEnemy->position.y = 0.0f;
 		sodEnemy->position.z = (float)(rand() % (int)(terrain->GetWidth() * terrain->GetMul()));
 		
 		///// -- Adam
-		gui->setSod(sodEnemy);
+		//gui->setSod(sodEnemy);
+		player->setSod(sodEnemy);
 		///// -- Adam
 	}
 
