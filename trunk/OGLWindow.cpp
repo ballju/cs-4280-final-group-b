@@ -200,17 +200,34 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 void OGLWindow::OnMouseDownL(int x, int y) 
 {
 	if (!gameWorld->IsGameDone())
-		gameWorld->player->FireWeapon();
+		///// -- Adam
+		//gameWorld->player->FireWeapon2(); ///// -- Adam -- I changed this to shoot weapon 2
+		gameWorld->player->fireWeapon = true;
+		///// -- Adam
 //	else
 //		OnMouseDownL(0,0);
 }
 // End - Phase 16
 
 ///// -- Adam
+//This function is for when you let go of the mouse button.
+//It sets a boolean to let the player know to shoot rockets until the mouse is released
+void OGLWindow::OnMouseUpL(int x, int y) 
+{
+	if (!gameWorld->IsGameDone())
+		///// -- Adam
+		//gameWorld->player->FireWeapon2(); ///// -- Adam -- I changed this to shoot weapon 2
+		gameWorld->player->fireWeapon = false;
+		///// -- Adam
+//	else
+//		OnMouseDownL(0,0);
+}
+
 void OGLWindow::OnMouseDownR(int x, int y) 
 {
 	if (!gameWorld->IsGameDone())
-		gameWorld->player->FireWeapon2();
+		gameWorld->player->FireWeapon();
+	//set a bool here
 //	else
 //		OnMouseDownL(0,0);
 }

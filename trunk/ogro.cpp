@@ -62,6 +62,7 @@ void COgroEnemy::OnCollision(CObject *collisionObject)
 			{//If the rocket hits the enemy, make it so it only takes damage once
 				if(hitPoints > 0)
 				{
+					beenShot = true;//Tell the enemy they've been shot
 					if(static_cast<CRocket*>(collisionObject)->isRocket == true)
 					{
 						hitPoints -= 50;//minus 10 health
@@ -74,17 +75,18 @@ void COgroEnemy::OnCollision(CObject *collisionObject)
 
 				if (hitPoints <= 0)
 				{
-				///// -- Adam
+			///// -- Adam
 
 					// kill the ogre
 					aiState = AI_DEAD;
 					velocity = CVector(0.0, 0.0, 0.0);
 
-				///// -- Adam
+			///// -- Adam
+					player->killOgro(this);
 				}
 				static_cast<CRocket*>(collisionObject)->hitTarget = true;
 			}
-				///// -- Adam
+			///// -- Adam
 		}
 	}
 }
@@ -103,6 +105,11 @@ void COgroEnemy::OnPrepare()
      // find the angle in the world of the vector from the enemy to the player
      // in relation the negative z-axis
      dirToPlayer = RAD2DEG(diff.Angle(CVector(0,0,-1)));
+
+	 ///// -- Adam
+	if (player->position.x > position.x)
+		dirToPlayer *= -1;
+	///// -- Adam
 
      // seed random generator
      srand((unsigned int)time(NULL));
@@ -179,6 +186,10 @@ void COgroEnemy::OnProcessAI()
           if (distFromPlayer < 100.0)
 			/****************************Faith Satterthwaite 11/27/2012****************************/
 			{	
+				///// -- Adam
+				beenShot = true; //If they see you, they'll now never stop chasing you
+				///// -- Adam
+
 				aiState = AI_ATTACK;
 				if(attackPlayer == false)	//Added if statement 12/1/2012
 				{
@@ -193,7 +204,13 @@ void COgroEnemy::OnProcessAI()
 				}
 			}
 			else
+			{
 				aiState = AI_UNCARING;
+				///// -- Adam
+				if (beenShot == true)//if you've shot an enemy, they will charge you no matter how far away they are
+					aiState = AI_ATTACK;
+				///// -- Adam
+		  }
 			/**************************************************************************************/
      }
 }
@@ -209,12 +226,12 @@ void COgroEnemy::OnDraw(CCamera *camera)
 	//z is up and down on the model
 	glTranslatef(0.0, 0.0, 35.0);//move it over their head
 	glRotatef(direction - dirToPlayer, 0.0, 0.0, 1.0);
-	glColor4f(0.0, 0.0, 0.0, 1.0);
-	glBegin(GL_QUADS);
-		glVertex3f(-15.0, 0, 0);
-		glVertex3f(15.0, 0, 0);
-		glVertex3f(15.0, 0, 5);
-		glVertex3f(-15.0, 0, 5);
+	glColor4f(1.0, 1.0, 1.0, 1.0);
+	glBegin(GL_LINE_LOOP);
+		glVertex3f(-14, 0, 1);
+		glVertex3f(14, 0, 1);
+		glVertex3f(14, 0, 4);
+		glVertex3f(-14, 0, 4);
 	glEnd();
 
 	if (hitPoints >= 50)
@@ -224,10 +241,10 @@ void COgroEnemy::OnDraw(CCamera *camera)
 	else
 		glColor4f(1.0, 0.0, 0.0, 1.0); // color -- red
 	glBegin(GL_QUADS);
-		glVertex3f(-14, -1, 1);
-		glVertex3f((GLfloat)hitPoints / (GLfloat)maxHP * 28 - 14, -1, 1);
-		glVertex3f((GLfloat)hitPoints / (GLfloat)maxHP * 28 - 14, -1, 4);
-		glVertex3f(-14, -1, 4);
+		glVertex3f(-14, 0, 1);
+		glVertex3f((GLfloat)hitPoints / (GLfloat)maxHP * 28 - 14, 0, 1);
+		glVertex3f((GLfloat)hitPoints / (GLfloat)maxHP * 28 - 14, 0, 4);
+		glVertex3f(-14, 0, 4);
 	glEnd();
 
 	glPopMatrix();

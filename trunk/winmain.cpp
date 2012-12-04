@@ -136,8 +136,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		// End - Phase 16
 
 	///// -- Adam
-	case WM_RBUTTONDOWN:		// left mouse button
-		g_glRender->OnMouseDownR(g_glRender->GetMouseX(lParam), g_glRender->GetMouseY(lParam));
+	case WM_LBUTTONUP: // when you let go of the left mouse
+		g_glRender->OnMouseUpL(g_glRender->GetMouseX(lParam), g_glRender->GetMouseY(lParam));
+		break;
+
+	case WM_RBUTTONDOWN:		// right mouse button
+			g_glRender->OnMouseDownR(g_glRender->GetMouseX(lParam), g_glRender->GetMouseY(lParam));
 		break;
 	///// -- Adam
 
@@ -294,6 +298,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevious, LPSTR lpCmdString,
 	{
 		ChangeDisplaySettings(NULL, 0);
 		ShowCursor(TRUE);
+		//msg.hwnd->unused = 1; //This is what I need to do, but I can't write this member
 	}
 
 	return static_cast<int>(msg.wParam);

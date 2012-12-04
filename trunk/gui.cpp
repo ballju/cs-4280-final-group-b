@@ -13,7 +13,7 @@ CGUI::CGUI()
 {
 	///// -- Adam
 	width = height = 0;
-	sodIndex = ogroIndex = 0;
+	//sodIndex = ogroIndex = 0;
 	gameOver = false;
 	///// -- Adam
 
@@ -28,6 +28,7 @@ CGUI::~CGUI()
 	font->ClearFont();
 	crosshair->ClearFont();
 	endText->ClearFont();
+	//ammo->ClearFont();
 	delete font;
 	delete crosshair;
 	delete endText;
@@ -98,7 +99,16 @@ void CGUI::Draw()
 		glDisable(GL_TEXTURE_2D);
 		font->SetPos3D(2.5f, 2.7f, -5.0f);
 		font->SetRGB(0.2f, 0.0f, 1.0f);
-	
+		
+		///// -- Adam
+		if (minutesLeft < 1)
+		{
+			font->SetRGB(1.0, 1.0, 0.0);
+			if(secondsLeft < 10)
+				font->SetRGB(1.0, 0.0, 0.0);
+		}
+		///// -- Adam
+
 		if (secondsLeft < 10)
 		{
 			if (millisecondsLeft < 10)
@@ -114,8 +124,26 @@ void CGUI::Draw()
 				font->Print("Time: %d:%d.%d", minutesLeft, secondsLeft, millisecondsLeft);
 		}
 
+		///// -- Adam
+		font->SetRGB(0.2f, 0.0f, 1.0f);
+		if (enemiesLeft < 2)//change the font color when getting close to winning
+			font->SetRGB(1.0f, 0.0f, 0.0f);
+		else if (enemiesLeft < 4)
+			font->SetRGB(1.0f, 1.0f, 0.0f);
+		///// -- Adam
+		
 		font->SetPos3D(2.5f, 2.5f, -5.0f);
 		font->Print("Enemies: %d", enemiesLeft);
+
+		///// -- Adam
+		font->SetRGB(0.2f, 0.0f, 1.0f);
+		if(player->ammo == 0)//change the font color if low on ammo
+			font->SetRGB(1.0, 0.0, 0.0);
+		else if(player->ammo <= 2)
+			font->SetRGB(1.0, 1.0, 0.0);
+		font->SetPos3D(2.5f, 2.3f, -5.0f);
+		font->Print("Ammo: %d", player->ammo); // print the number of rockets you have left
+		///// -- Adam
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -172,8 +200,6 @@ void CGUI::Draw()
 ///// -- Adam
 void CGUI::drawHealth()// draws the player's health bar
 {
-	//Draw Health Bar //TODO: make it shrink as HP decreases
-	//int hp = 100; // temporary hp until we actually get hp implemented
 	int hpMax = 100; 
 	if (player->hp >= 50)
 		glColor3f(0.0f, 1.0f, 0.0f);
@@ -244,7 +270,7 @@ void CGUI::drawRadar()// draw the radar screen on the HUD
 	
 	glTranslatef(player->position.z * 180.0 / 1600.0 + 20, player->position.x * 180.0 / 1600.0 + 20, 0);//Translate out to the correct location
 	glRotatef(-player->direction + 90, 0, 0, 1); //rotate about the z axis
-		//it's negative because we're drawing the radar in the opposite direction that the player->direction attribute works
+		//it's negative because we're drawing the radar in the opposite direction than the player->direction attribute works
 		//plus ninety to get it to line up right.
 
 	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
@@ -260,42 +286,31 @@ void CGUI::drawRadar()// draw the radar screen on the HUD
 	glPointSize(3.0);
 	glBegin(GL_POINTS);
 		//Draw the Sods on the map
-		for (int i = 0; i < sodIndex; i++)
+		for (int i = 0; i < player->sodIndex; i++)
 		{
-			if (sod[i] != 0)
+			if (player->sod[i] != 0)
 			{
-				if (sod[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
+				if (player->sod[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
 					glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				else
 					glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-				if (sod[i]->getAIState() == AI_DEAD)
-				{
-					sod[i] = 0;//stop trying dead ones
-				}
-				else
-				{//convert the sod's location into radar coordinates and draw it on the screen
-					glVertex2i(sod[i]->position.z * 180.0 / 1600.0 + 20, sod[i]->position.x * 180.0 / 1600.0 + 20);
-				}
+				//convert the sod's location into radar coordinates and draw it on the screen
+					glVertex2i(player->sod[i]->position.z * 180.0 / 1600.0 + 20, player->sod[i]->position.x * 180.0 / 1600.0 + 20);
 			}
 		}
 
 		//Draw the Ogros on the map
-		for (int i = 0; i < ogroIndex; i++)
+		for (int i = 0; i < player->ogroIndex; i++)
 		{
-			if (ogro[i] != 0)
+			if (player->ogro[i] != 0) // make sure the enemy isn't dead
 			{
-				if (ogro[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
+				if (player->ogro[i]->getAIState() == AI_UNCARING) // This changes the color based on idle verses attacking enemies
 					glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				else
 					glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-				if (ogro[i]->getAIState() == AI_DEAD)
-				{
-					ogro[i] = 0;//stop trying dead ones
-				}
-				else
-				{//convert the ogro's location into radar coordinates and draw it on the screen
-					glVertex2i(ogro[i]->position.z * 180.0 / 1600.0 + 20, ogro[i]->position.x * 180.0 / 1600.0 + 20);
-				}
+				
+				//convert the ogro's location into radar coordinates and draw it on the screen
+				glVertex2i(player->ogro[i]->position.z * 180.0 / 1600.0 + 20, player->ogro[i]->position.x * 180.0 / 1600.0 + 20);
 			}
 		}
 	glEnd();
@@ -316,17 +331,17 @@ void CGUI::setPlayer(CPlayer* p)
 	player = p;
 }
 
-//get a pointer to the sod // The array is used to keep track of all sods on the map in the radar screen
-void CGUI::setSod(CEnemy* s)
-{
-	sod[sodIndex] = s;
-	sodIndex++;
-}
-
-//get a pointer to the ogro // The array is used to keep track of all ogros on the map in the radar screen
-void CGUI::setOgro(CEnemy* o)
-{
-	ogro[ogroIndex] = o;
-	ogroIndex++;
-}
+////get a pointer to the sod // The array is used to keep track of all sods on the map in the radar screen
+//void CGUI::setSod(CEnemy* s)
+//{
+//	sod[sodIndex] = s;
+//	sodIndex++;
+//}
+//
+////get a pointer to the ogro // The array is used to keep track of all ogros on the map in the radar screen
+//void CGUI::setOgro(CEnemy* o)
+//{
+//	ogro[ogroIndex] = o;
+//	ogroIndex++;
+//}
 ///// -- Adam

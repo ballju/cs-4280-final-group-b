@@ -39,8 +39,10 @@ private:
 	///// -- Adam
 	int height, width; // used to calculate aspect ratio in order to draw gui and then switch back to 3d
 	CPlayer *player;
-	CEnemy *sod[MAX_ENEMIES], *ogro[MAX_ENEMIES];
-	int sodIndex, ogroIndex;
+	//CEnemy *sod[MAX_ENEMIES], *ogro[MAX_ENEMIES];
+	//int sodIndex, ogroIndex; // I moved this into the player class
+
+	//CFont *ammo;
 	///// -- Adam
 
 public:
@@ -63,8 +65,8 @@ public:
 	void setScreen(int w, int h); // set the screen whenever the screen changes (called from world class)
 
 	void setPlayer(CPlayer* p);
-	void setSod(CEnemy* s);
-	void setOgro(CEnemy* o);
+	//void setSod(CEnemy* s);
+	//void setOgro(CEnemy* o);
 	bool gameOver;
 	///// -- Adam
 };

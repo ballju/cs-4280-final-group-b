@@ -44,6 +44,7 @@ protected:
 	 ///// -- Adam
 	 int maxHP;
 	 float dirToPlayer;	// the angle of the enemy-player vector
+	 bool beenShot;
 	 ///// -- Adam
      
 	 float distFromPlayer;    // distance this enemy is from player
@@ -84,6 +85,7 @@ public:
 		  ///// -- Adam
 		  maxHP = 100;
 		  dirToPlayer = 0;	// the angle of the enemy-player vector
+		  beenShot = false; //not been shot yet
 		  ///// -- Adam
           
 		  isDead = false;     // enemy starts off alive

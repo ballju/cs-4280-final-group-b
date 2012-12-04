@@ -65,6 +65,7 @@ public:
 	// End - Phase 16
 
 	///// -- Adam
+	void OGLWindow::OnMouseUpL(int x, int y);
 	void OnMouseDownR(int x, int y);
 	///// -- Adam
 
