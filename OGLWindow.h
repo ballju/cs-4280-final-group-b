@@ -43,7 +43,7 @@ public:
 	bool Init();
 	bool Shutdown();
 	//TOM
-	bool sprint;
+	
 	bool walk;
 	//TOM
 
@@ -64,6 +64,9 @@ public:
 	// Begin - Phase 9
 	void OnKeyDown(int nVirtKey); 
 	// End - Phase 9
+	///// -- Adam
+	void OnKeyUp(int nVirtKey);
+	///// -- Adam
 	// Begin - Phase 16
 	void OnMouseDownL(int x, int y);
 	// End - Phase 16

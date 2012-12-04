@@ -20,7 +20,7 @@ OGLWindow::~OGLWindow()
 
 bool OGLWindow::Init()
 {   
-	sprint=false;//TOM
+	//sprint=false;//TOM
 	walk=false;//TOM
     // clear to black background
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -162,7 +162,7 @@ void OGLWindow::OnMouseMove(int x, int y)
 		gameCamera->pitch +=0.5f*mouseSensitivity;
 	if (dy > 0)
 		gameCamera->pitch -= 0.5f*mouseSensitivity;
-
+	
 	
 	oldX=mX;
 	oldY=mY;
@@ -183,96 +183,20 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 		{
 			//Begin - Phase 10
 		case VK_SHIFT:
-			sprint=!sprint;
-			walk=false;
-			gameCamera->position.y=0;
+			gameWorld->shift = true;
 			break;
-		case VK_CONTROL:
-			walk=!walk;
-			sprint=false;
-			gameCamera->position.y-=1;
-			break;
-		/*case VK_SPACE:
-			gameWorld->player->stamina+=0.25;
-			if(gameWorld->player->stamina>=gameWorld->player->maxStam)
-				gameWorld->player->stamina=gameWorld->player->maxStam;
-			break;*/
 		case 0x57:
-			if(sprint)
-			{
-				gameCamera->velocity = CVector(0,0,100.0);
-				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina<=0)
-					sprint=false;
-				break;
-			}
-			else if(walk)
-			{
-				gameCamera->velocity = CVector(0,0,15.0);
-				break;
-			}
-			else
-			{
-				gameCamera->velocity = CVector(0,0,50.0);
-				break;
-			}
+			gameWorld->w = true;
+			break;
 		case 0x53:
-			if(sprint)
-			{
-				gameCamera->velocity = CVector(0,0,-100.0);
-				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina<=0)
-					sprint=false;
-				break;
-			}
-			else if(walk)
-			{
-				gameCamera->velocity = CVector(0,0,-15.0);
-				break;
-			}
-			else
-			{
-				gameCamera->velocity = CVector(0,0,-50.0);
-				break;
-			}
+			gameWorld->s = true;
+			break;*/
 		case 0x44:
-			if(sprint)
-			{
-				gameCamera->velocity = CVector(100.0,0,0);
-				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina<=0)
-					sprint=false;
-				break;
-			}
-			else if(walk)
-			{
-				gameCamera->velocity = CVector(15.0,0,0);
-				break;
-			}
-			else
-			{
-				gameCamera->velocity = CVector(50.0,0,0);
-				break;
-			}
+			gameWorld->d = true;
+			break;
 		case 0x41:
-			if(sprint)
-			{
-				gameCamera->velocity = CVector(-100.0,0,0);
-				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina<=0)
-					sprint=false;
-				break;
-			}
-			else if(walk)
-			{
-				gameCamera->velocity = CVector(-15.0,0,0);
-				break;
-			}
-			else
-			{
-				gameCamera->velocity = CVector(-50.0,0,0);
-				break;
-			}
+			gameWorld->a = true;
+			break;
 //		case VK_ESCAPE:
 //			PostQuitMessage(0);
 //			break;
@@ -291,6 +215,36 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 	}
 }//TOM
 // End - Phase 9
+
+void OGLWindow::OnKeyUp(int nVirtKey)
+{
+	// Phase 18 - Add gameDone logic
+	if (!gameWorld->IsGameDone())
+	{
+		switch (nVirtKey)
+		{
+			//Begin - Phase 10
+		case VK_SHIFT:
+			gameWorld->shift = false;
+			break;
+		case 0x57:
+			gameWorld->w = false;
+			break;
+		case 0x53:
+			gameWorld->s = false;
+			break;
+		case 0x44:
+			gameWorld->d = false;
+			break;
+		case 0x41:
+			gameWorld->a = false;
+			break;
+		default:
+			break;
+		}
+	}
+}//TOM
+
 // Begin - Phase 16
 void OGLWindow::OnMouseDownL(int x, int y) 
 {
