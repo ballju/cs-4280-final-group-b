@@ -235,14 +235,14 @@ void CGUI::drawStamina()// draws the player's stamina bar
 	//Draw Stamina Bar // TODO: make it increase and become more solid as players get more tired.
 	//int stamina = 100;
 	//int staminaMax = 100;
-	glColor4f(0.8f, 0.8f, 0.3f, (GLfloat)player->stamina / player->maxStam);//color -- yellow/tan
+	glColor3f(0.8f, 0.8f, 0.3f);//color -- yellow/tan
 	glBegin(GL_QUADS);
 		glVertex2i(20, 300);
 		glVertex2i(30, 300);
 		glVertex2i(30, (GLfloat)player->stamina / (GLfloat)player->maxStam * 200 + 300);
 		glVertex2i(20, (GLfloat)player->stamina / (GLfloat)player->maxStam * 200 + 300);
 	glEnd();
-	glColor4f(1.0f, 1.0f, 1.0f, (GLfloat)player->stamina / player->maxStam);
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glLineWidth(2.0);
 	glBegin(GL_LINE_LOOP);
 		glVertex2i(19, 299);

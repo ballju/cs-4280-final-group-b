@@ -188,7 +188,7 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 			{
 				gameCamera->velocity = CVector(0,0,100.0);
 				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina==0)
+				if(gameWorld->player->stamina<=0)
 					sprint=false;
 				break;
 			}
@@ -207,7 +207,7 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 			{
 				gameCamera->velocity = CVector(0,0,-100.0);
 				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina==0)
+				if(gameWorld->player->stamina<=0)
 					sprint=false;
 				break;
 			}
@@ -226,7 +226,7 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 			{
 				gameCamera->velocity = CVector(100.0,0,0);
 				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina==0)
+				if(gameWorld->player->stamina<=0)
 					sprint=false;
 				break;
 			}
@@ -245,7 +245,7 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 			{
 				gameCamera->velocity = CVector(-100.0,0,0);
 				gameWorld->player->stamina-=1;
-				if(gameWorld->player->stamina==0)
+				if(gameWorld->player->stamina<=0)
 					sprint=false;
 				break;
 			}

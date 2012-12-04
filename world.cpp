@@ -106,6 +106,11 @@ void CWorld::Animate(float deltaTime)
 			player->FireWeapon2();
 		player->timer = 0;
 	}
+
+	if(player->stamina < 100)
+	{
+		player->stamina += .15;
+	}
 	///// -- Adam
 
 	// Phase 16 - Begin
