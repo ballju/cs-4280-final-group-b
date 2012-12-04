@@ -58,6 +58,11 @@ protected:
 	void OnPrepare();
 
 public:
+	///// -- Adam
+	bool shift, w, s, a, d;
+	bool sprint;
+	///// -- Adam
+	
 	HWND hwnd;
 
 	// Begin - Phase 12

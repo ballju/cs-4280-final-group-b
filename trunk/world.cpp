@@ -59,6 +59,10 @@ CWorld::CWorld(CCamera *c)
 	gui->SetCurrentTime(timeStart);
 	gui->SetEnemiesLeft(numOgros + numSods);
 	// End - Phase 18
+
+	///// -- Adam
+	shift = w = s = a = d = sprint = false;
+	///// -- Adam
 }
 
 void CWorld::Animate(float deltaTime)
@@ -110,6 +114,72 @@ void CWorld::Animate(float deltaTime)
 	if(player->stamina < 100)
 	{
 		player->stamina += .15;
+	}
+
+	if (shift)
+	{
+			sprint= true;
+			//camera->position.y=0;
+	}
+	else
+	{
+		sprint = false;
+	}
+	if(w)
+	{
+			if(sprint)
+			{
+				camera->velocity = CVector(0,0,100.0);
+				player->stamina-=1;
+				if(player->stamina<=0)
+					sprint=false;
+			}
+			else
+			{
+				camera->velocity = CVector(0,0,50.0);
+			}
+	}
+	if(s)
+	{
+			if(sprint)
+			{
+				camera->velocity = CVector(0,0,-100.0);
+				player->stamina-=1;
+				if(player->stamina<=0)
+					sprint=false;
+			}
+			else
+			{
+				camera->velocity = CVector(0,0,-50.0);
+			}
+	}
+	if(d)
+	{
+			if(sprint)
+			{
+				camera->velocity = CVector(100.0,0,0);
+				player->stamina-=1;
+				if(player->stamina<=0)
+					sprint=false;
+			}
+			else
+			{
+				camera->velocity = CVector(50.0,0,0);;
+			}
+	}
+	if(a)
+	{
+			if(sprint)
+			{
+				camera->velocity = CVector(-100.0,0,0);
+				player->stamina-=1;
+				if(player->stamina<=0)
+					sprint=false;
+			}
+			else
+			{
+				camera->velocity = CVector(-50.0,0,0);
+			}
 	}
 	///// -- Adam
 

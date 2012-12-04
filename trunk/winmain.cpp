@@ -69,6 +69,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	static HDC hDC;
 	int height, width;
 	int x, y;
+	///// -- Adam
+	int fwKeys;
+	LPARAM keyData;
+	///// -- Adam
 
 	switch (msg)
 	{
@@ -97,9 +101,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		g_glRender->SetupProjection(width, height);
 		return 0;
 
+		///// -- Adam
+	case WM_KEYUP:
+		//int fwKeys;
+		//LPARAM keyData;
+
+		fwKeys = (int)wParam;
+		keyData = lParam;
+
+			// Begin - Phase 9
+			g_glRender->OnKeyUp((int)wParam);
+			// End - Phase 9
+			break;
+		///// -- Adam
+
 	case WM_KEYDOWN:
-		int fwKeys;
-		LPARAM keyData;
+		//int fwKeys;///// -- Adam
+		//LPARAM keyData;///// -- Adam
 
 		fwKeys = (int)wParam;
 		keyData = lParam;
