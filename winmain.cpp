@@ -191,7 +191,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevious, LPSTR lpCmdString,
 	}
 	//TOM
 	// Start - Phase 3
-	sprintf(str, "Welcome to Shooter Game!\n\nKeys:\n<W> - Forward\n<S> - Backward\n<A> - Left Strafe\n<D> - Right Strafe\n<Shift> - Toggle Sprint\n<Ctrl> - Toggle Sneak\n<Space> Regain Stamina");
+	sprintf(str, "Welcome to Shooter Game!\n\nKeys:\n<W> - Forward\n<S> - Backward\n<A> - Left Strafe\n<D> - Right Strafe\n<Shift> - Toggle Sprint\n<Ctrl> - Toggle Sneak");
 	strcat(str, "\n\nLeft mouse button fires bullets, right mouse button fires rockets.\nMove mouse to look around.\n\n");
 	strcat(str, "Numpad '+' - Increase mouse sensitivity\nNumpad '-' - Decrease mouse sensitivity\n\n");
 	strcat(str, "Created for WSU CS4280\nby Brian Rague.\n");
@@ -241,7 +241,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevious, LPSTR lpCmdString,
     else
     {
         dwExStyle=WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;   // Window Extended Style
-        dwStyle=WS_OVERLAPPEDWINDOW;                    // Windows Style
+        dwStyle=WS_OVERLAPPEDWINDOW;
+		ShowCursor(FALSE);// Windows Style
     }
 
     AdjustWindowRectEx(&windowRect, dwStyle, FALSE, dwExStyle);     // Adjust Window To True Requested Size
