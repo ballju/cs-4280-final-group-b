@@ -44,7 +44,6 @@ public:
 	bool Shutdown();
 	//TOM
 	
-	bool walk;
 	//TOM
 
 	void SetupProjection(int width, int height);

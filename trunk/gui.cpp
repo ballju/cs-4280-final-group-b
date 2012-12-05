@@ -148,7 +148,7 @@ void CGUI::Draw()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		crosshair->SetRGBA(1.0f, 0.1f, 0.1f, 0.7f);
-		crosshair->SetPos3D(-0.03f, -0.03f, -5.0f);
+		crosshair->SetPos3D(-0.07f, -0.07f, -5.0f);
 		crosshair->Print("+");
 
 		//glDisable(GL_BLEND); ///// -- Adam commented these out and moved them down to the bottom

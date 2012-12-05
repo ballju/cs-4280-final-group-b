@@ -21,11 +21,10 @@ OGLWindow::~OGLWindow()
 bool OGLWindow::Init()
 {   
 	//sprint=false;//TOM
-	walk=false;//TOM
     // clear to black background
     glClearColor(0.0, 0.0, 0.0, 0.0);
 	// Begin - Phase 6
-	mouseSensitivity = 2.0f;
+	mouseSensitivity = 3.0f;
 	// End - Phase 6
     m_angle = 0.0f;
 	// Begin - Phase 5
@@ -190,7 +189,7 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 			break;
 		case 0x53:
 			gameWorld->s = true;
-			break;*/
+			break;
 		case 0x44:
 			gameWorld->d = true;
 			break;
@@ -201,14 +200,6 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 //			PostQuitMessage(0);
 //			break;
 			// End - Phase 10
-		case VK_ADD:
-			mouseSensitivity += 0.05f;
-			break;
-		case VK_SUBTRACT:
-			mouseSensitivity -= 0.05f;
-			if (mouseSensitivity < 0.05)
-				mouseSensitivity = 0.05;
-			break;
 		default:
 			break;
 		}

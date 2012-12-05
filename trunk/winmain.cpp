@@ -209,7 +209,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevious, LPSTR lpCmdString,
 	}
 	//TOM
 	// Start - Phase 3
-	sprintf(str, "Welcome to Shooter Game!\n\nKeys:\n<W> - Forward\n<S> - Backward\n<A> - Left Strafe\n<D> - Right Strafe\n<Shift> - Toggle Sprint\n<Ctrl> - Toggle Sneak");
+	sprintf(str, "Welcome to Shooter Game!\n\nKeys:\n<W> - Forward\n<S> - Backward\n<A> - Left Strafe\n<D> - Right Strafe\n<Shift> - Toggle Sprint");
 	strcat(str, "\n\nLeft mouse button fires bullets, right mouse button fires rockets.\nMove mouse to look around.\n\n");
 	strcat(str, "Numpad '+' - Increase mouse sensitivity\nNumpad '-' - Decrease mouse sensitivity\n\n");
 	strcat(str, "Created for WSU CS4280\nby Brian Rague.\n");
