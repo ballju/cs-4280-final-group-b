@@ -183,6 +183,7 @@ void OGLWindow::OnKeyDown(int nVirtKey)
 			//Begin - Phase 10
 		case VK_SHIFT:
 			gameWorld->shift = true;
+			gameWorld->sprint = true;
 			break;
 		case 0x57:
 			gameWorld->w = true;
@@ -217,6 +218,7 @@ void OGLWindow::OnKeyUp(int nVirtKey)
 			//Begin - Phase 10
 		case VK_SHIFT:
 			gameWorld->shift = false;
+			gameWorld->sprint = false;
 			break;
 		case 0x57:
 			gameWorld->w = false;

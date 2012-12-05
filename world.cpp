@@ -116,12 +116,13 @@ void CWorld::Animate(float deltaTime)
 		player->stamina += .15;
 	}
 
-	if (shift&&player->stamina>0)
-	{
-			sprint= true;
-			//camera->position.y=0;
-	}
-	else
+	//if (shift&&player->stamina>0)
+	//{
+	//		sprint= true;
+	//		//camera->position.y=0;
+	//}
+	//else
+	if (player->stamina <= 0)
 	{
 		sprint = false;
 	}
@@ -129,56 +130,56 @@ void CWorld::Animate(float deltaTime)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(0,0,60.0);
+				camera->velocity += CVector(0,0,1.0);
 				player->stamina-=1;
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(0,0,30.0);
+				camera->velocity += CVector(0,0,0.5);
 			}
 	}
 	if(s)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(0,0,-60.0);
+				camera->velocity += CVector(0,0,-2.0);
 				player->stamina-=1;
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(0,0,-30.0);
+				camera->velocity += CVector(0,0,-0.5);
 			}
 	}
 	if(d)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(60.0,0,0);
+				camera->velocity += CVector(1.0,0,0);
 				player->stamina-=1;
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(30.0,0,0);;
+				camera->velocity += CVector(0.5,0,0);
 			}
 	}
 	if(a)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(-60.0,0,0);
+				camera->velocity += CVector(-1.0,0,0);
 				player->stamina-=1;
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(-30.0,0,0);
+				camera->velocity += CVector(-0.5,0,0);
 			}
 	}
 	///// -- Adam
