@@ -1,3 +1,24 @@
+// -----------------------------------------------------------------
+//                      Learning Team B
+//                      Members:
+//                            Adam LeMmon
+//                            Faith Satterthwaite
+//                            Tom Fletcher
+//                            Justin Ball
+//                      CS 4280 – 11:30 am
+//                      Final Project
+//                      Dr. Rague
+//                      Due: 12/06/12
+//                      Version: 2.4
+// -----------------------------------------------------------------
+// We made five major improvements to this game
+// 1) New controls
+// 2) Enemy attack
+// 3) HUD (heads up display)
+// 4) Enemy health bars
+// 5) New Weapon
+// -----------------------------------------------------------------
+
 #ifndef __TREE_H
 #define __TREE_H
 
