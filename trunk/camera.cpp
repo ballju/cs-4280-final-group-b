@@ -201,6 +201,7 @@ void CCamera::Animate(scalar_t deltaTime)
      float sinYaw = (scalar_t)sin(DEG2RAD(yaw));
      float sinPitch = (scalar_t)sin(DEG2RAD(pitch));
 
+
 	// speed is velocity z-component
      float speed = velocity.z * deltaTime;
 
