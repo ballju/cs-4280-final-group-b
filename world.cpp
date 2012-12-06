@@ -111,6 +111,12 @@ void CWorld::Animate(float deltaTime)
 		player->timer = 0;
 	}
 
+	
+	if (player->stamina <= 0)
+	{
+		sprint = false;
+	}
+
 	if(player->stamina < 100)
 	{
 		player->stamina += .15;
@@ -122,10 +128,7 @@ void CWorld::Animate(float deltaTime)
 	//		//camera->position.y=0;
 	//}
 	//else
-	if (player->stamina <= 0)
-	{
-		sprint = false;
-	}
+	
 	if(w)
 	{
 			if(sprint)
@@ -148,7 +151,7 @@ void CWorld::Animate(float deltaTime)
 				if (a || d)//go the same speed even when moving diagonal
 					camera->velocity += CVector(0, 0, 0.35);
 				else
-					camera->velocity += CVector(0,0,0.5);
+					camera->velocity += CVector(0,0,0.4);
 			}
 	}
 	if(s)
@@ -175,7 +178,7 @@ void CWorld::Animate(float deltaTime)
 				if (a || d)
 					camera->velocity += CVector(0, 0, -0.35);
 				else
-					camera->velocity += CVector(0,0,-0.5);
+					camera->velocity += CVector(0,0,-0.4);
 			}
 	}
 	if(d)
@@ -197,7 +200,7 @@ void CWorld::Animate(float deltaTime)
 				if (w || s)
 					camera->velocity += CVector(0.35, 0, 0);
 				else
-					camera->velocity += CVector(0.5,0,0);
+					camera->velocity += CVector(0.4,0,0);
 			}
 	}
 	if(a)
@@ -219,7 +222,7 @@ void CWorld::Animate(float deltaTime)
 				if (w || s)
 					camera->velocity += CVector(-0.35, 0, 0);
 				else
-					camera->velocity += CVector(-0.5,0,0);
+					camera->velocity += CVector(-0.4,0,0);
 			}
 	}
 	///// -- Adam
