@@ -130,56 +130,96 @@ void CWorld::Animate(float deltaTime)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(0,0,1.0);
-				player->stamina-=1;
+				if (a || d)//go the same speed even when moving diagonal
+				{
+					camera->velocity += CVector(0, 0, 0.7);
+					//take no stamina because its being taken by the a and d keys
+				}
+				else
+				{
+					camera->velocity += CVector(0,0,1.0);
+					player->stamina-=1;
+				}
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(0,0,0.5);
+				if (a || d)//go the same speed even when moving diagonal
+					camera->velocity += CVector(0, 0, 0.35);
+				else
+					camera->velocity += CVector(0,0,0.5);
 			}
 	}
 	if(s)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(0,0,-2.0);
-				player->stamina-=1;
+				//go the same speed even when moving diagonal
+				if (a || d)
+				{
+					camera->velocity += CVector(0, 0, -0.7);
+					//take no stamina because it's being taken down below
+				}
+				else
+				{
+					camera->velocity += CVector(0,0,-1.0);
+					player->stamina-=1;
+				}
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(0,0,-0.5);
+				//go the same speed even when moving diagonal
+				if (a || d)
+					camera->velocity += CVector(0, 0, -0.35);
+				else
+					camera->velocity += CVector(0,0,-0.5);
 			}
 	}
 	if(d)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(1.0,0,0);
+				//go the same speed even when moving diagonal
+				if (w || s)
+					camera->velocity += CVector(0.7, 0, 0);
+				else
+					camera->velocity += CVector(1.0,0,0);
 				player->stamina-=1;
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(0.5,0,0);
+				//go the same speed even when moving diagonal
+				if (w || s)
+					camera->velocity += CVector(0.35, 0, 0);
+				else
+					camera->velocity += CVector(0.5,0,0);
 			}
 	}
 	if(a)
 	{
 			if(sprint)
 			{
-				camera->velocity += CVector(-1.0,0,0);
+				//go the same speed even when moving diagonal
+				if (w || s)
+					camera->velocity += CVector(-0.7, 0, 0);
+				else
+					camera->velocity += CVector(-1.0,0,0);
 				player->stamina-=1;
 				if(player->stamina<=0)
 					sprint=false;
 			}
 			else
 			{
-				camera->velocity += CVector(-0.5,0,0);
+				//go the same speed even when moving diagonal
+				if (w || s)
+					camera->velocity += CVector(-0.35, 0, 0);
+				else
+					camera->velocity += CVector(-0.5,0,0);
 			}
 	}
 	///// -- Adam
